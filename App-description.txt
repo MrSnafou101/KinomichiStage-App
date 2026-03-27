@@ -1,0 +1,28 @@
+app pour stage de kinomichi 
+- international
+- possibilité d'inscription
+	=> list de participant : nom/prenom, telephone, mail, nom club, type de participent (enfant, adult, coach) 
+	=> club : nom, contact, adress?
+- suivit de l'avancement du stage
+- organiser sous forme de plage horaire de travail => samedi (5 plages) et dimanche (3 plages)
+	=> inscription possible sélective des plages
+	=> optionnel samedi, souper et/ou logement / participation possible même sans faire le stage
+- connaitre les prix en fct de l'inscription -> payement à la fin du stage
+	=> prix pour horaire travail = indicatifs
+	=> prix soupé et logement fix
+	=> prix variable adulte/enfant ?
+- un animateur/coach pour chaque horaire (participent mais moins cher)
+- afficher liste des participent + plages horaires associées
+- prix:
+=> prix par horaire
+=> prix soupé
+=> prix logement
+=> si participe a tous les horaire => réduction
+- admin :
+ => encodage des tarifs et réduction
+ => définir les horaires du stage
+ => afficher nbr inscrits
+	-> nbr par plage
+	-> nbr soupé
+	-> nbr logement
+ => afficher totale dépense/revenus  
