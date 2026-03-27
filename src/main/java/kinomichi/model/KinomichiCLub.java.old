@@ -1,0 +1,11 @@
+package kinomichi.model;
+
+public class KinomichiCLub {
+    private String clubName;
+
+    public KinomichiCLub(String name){
+        this.clubName = name;
+    }
+
+    public String getClubName(){return this.clubName;}
+}

@@ -32,8 +32,10 @@ Model:
 - club
   - nom
   - contact?
-- activité
-  - cours
-  - soupé
-  - logement
+- activité (cours, soupé, logement)
+  -  date
+  - tarif
 - type de participant
+- traif
+  - valeurs
+  - promotion
