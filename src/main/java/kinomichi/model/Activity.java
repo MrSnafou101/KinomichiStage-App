@@ -9,9 +9,8 @@ public abstract class Activity {
     private LocalDateTime activityDate;
     private ActivityPricing pricing;
     private Set<Participant> participants;
-    private Participant animator;
 
-    Activity(String name, LocalDateTime startDate, ActivityPricing pricing){
+    public Activity(String name, LocalDateTime startDate, ActivityPricing pricing){
         this.ActivityName = name;
         this.activityDate = startDate;
         this.pricing = pricing;
@@ -19,8 +18,6 @@ public abstract class Activity {
     public String getActivityName() {return ActivityName;}
 
     public void addParticipantToActivity(Participant toAdd){this.participants.add(toAdd);}
-
-    public void setAnimator(Participant animator){this.animator = animator;}
 
     public LocalDateTime getActivityDate() {return activityDate;}
 

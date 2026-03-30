@@ -8,10 +8,9 @@ public class ActionMenu {
             <<<<  Welcom to the kinomishi app  >>>>
             What do you want to do ?
             P => Add participant
-            C => Add club
-            S => Add session
+            A => Add activity
             L => list participants
-            I => Others infos
+            I => Other infos
             Q => Quit
             """;
     private static final String ADD_PARTICIPANT = """
@@ -24,8 +23,17 @@ public class ActionMenu {
             
             press B or b to go back
             """;
+    private static final String ADD_ACTIVITY = """
+            **** Adding activity ****
+            What activity do you want to add ?
+            S => Kinomichi session
+            D => Dinner
+            L => Lodgement
+            B => Go back
+            """;
 
     public static void displayMainMenu(){System.out.println(MAIN_MENU);}
     public static void displayAddParticipantAction(){System.out.println(ADD_PARTICIPANT);}
+    public static void displayAddActivityMenu(){System.out.println(ADD_ACTIVITY);}
 
 }

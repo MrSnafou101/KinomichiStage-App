@@ -2,24 +2,34 @@ package kinomichi.model;
 
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
-import java.time.temporal.ChronoUnit;
 import java.util.Set;
 
 public class KinomichiSesison extends Activity{
-    private LocalDateTime endDateAndHour;
+    private long durationInMinute;
     private Set<Participant> participants;
+    private Participant animator;
 
-    KinomichiSesison(String name, LocalDateTime startDate, LocalDateTime endDate, ActivityPricing pricing) {
+    public KinomichiSesison(String name, LocalDateTime startDate, long duration, ActivityPricing pricing) {
         super(name, startDate, pricing);
+        this.durationInMinute = duration;
     }
 
-    public Long activityDuration(){
-        return ChronoUnit.HOURS.between(getActivityDate(), this.endDateAndHour);
-    }
+    //public Long activityDuration(){return ChronoUnit.HOURS.between(getActivityDate(), this.endDateAndHour);}
+    public long getSessionDuration(){return this.durationInMinute;}
+    public LocalDateTime getSessionEnd(){return this.getActivityDate().plusMinutes(this.durationInMinute);}
+    public void setAnimator(Participant animator){this.animator = animator;}
+
     public String toString(){
-        DateTimeFormatter formatter = DateTimeFormatter.ofPattern("dd-MM-yyyy");
+        DateTimeFormatter formatter = DateTimeFormatter.ofPattern("dd-MM-yyyy HH:mm");
+        return "Session %s on %s for %s minutes added".formatted(
+                this.getActivityName(),this.getActivityDate().format(formatter), this.durationInMinute
+        );
+    }
+
+    public String toStringWithDates(){
+        DateTimeFormatter formatter = DateTimeFormatter.ofPattern("dd-MM-yyyy HH:mm");
         return this.getActivityName() + " form "
                 + this.getActivityDate().format(formatter) + " to "
-                + this.endDateAndHour.format(formatter);
+                + this.getSessionEnd().format(formatter);
     }
 }

@@ -7,7 +7,7 @@ public class Lodgement extends Activity {
     private int availableBed;
     private boolean isAvailabe;
 
-    Lodgement(String name, LocalDateTime startDate, ActivityPricing pricing, int beds) {
+    public Lodgement(String name, LocalDateTime startDate, int beds, ActivityPricing pricing) {
         super(name, startDate, pricing);
         this.availableBed = beds;
     }
