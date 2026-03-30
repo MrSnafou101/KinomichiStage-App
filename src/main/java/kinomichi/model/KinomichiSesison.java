@@ -6,7 +6,7 @@ import java.util.Set;
 
 public class KinomichiSesison extends Activity{
     private long durationInMinute;
-    private Set<Participant> participants;
+    private ParticipantsList participants;
     private Participant animator;
 
     public KinomichiSesison(String name, LocalDateTime startDate, long duration, ActivityPricing pricing) {
@@ -17,7 +17,12 @@ public class KinomichiSesison extends Activity{
     //public Long activityDuration(){return ChronoUnit.HOURS.between(getActivityDate(), this.endDateAndHour);}
     public long getSessionDuration(){return this.durationInMinute;}
     public LocalDateTime getSessionEnd(){return this.getActivityDate().plusMinutes(this.durationInMinute);}
-    public void setAnimator(Participant animator){this.animator = animator;}
+    public boolean setAnimator(Participant animator){
+        if(animator.getType() == ParticipantType.ANIMATOR){
+            this.animator = animator;
+            return true;
+        }else{return false;}
+    }
 
     public String toString(){
         DateTimeFormatter formatter = DateTimeFormatter.ofPattern("dd-MM-yyyy HH:mm");

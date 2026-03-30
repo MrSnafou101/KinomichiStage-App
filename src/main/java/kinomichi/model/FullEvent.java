@@ -1,9 +1,8 @@
 package kinomichi.model;
 
-import java.lang.classfile.Attribute;
-import java.util.HashSet;
-import java.util.Objects;
-import java.util.Set;
+import java.util.*;
+import java.util.stream.Collectors;
+import java.util.stream.IntStream;
 
 public class FullEvent {
     private Set<Activity> activitySet = new HashSet<>();
@@ -22,6 +21,22 @@ public class FullEvent {
 
     public void displayActivity(){
         this.activitySet.forEach(System.out::println);
+    }
+
+    public Map<Integer, Activity> ActivityToMapForSelection(String classStr){
+        Class c = (classStr.equalsIgnoreCase("lodgement"))? Lodgement.class :
+                (classStr.equalsIgnoreCase("dinner"))? EventDinner.class : KinomichiSesison.class;
+
+        List<Activity> tmpList = activitySet.stream()
+                .filter(a -> a.getClass() == c)
+                .toList();
+
+        return IntStream.range(0, tmpList.size())
+                .boxed()
+                .collect(Collectors.toMap(
+                        i -> i,
+                        tmpList::get
+                ));
     }
 
 }

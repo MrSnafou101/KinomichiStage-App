@@ -8,18 +8,20 @@ import java.time.LocalDate;
 import java.time.LocalDateTime;
 import java.time.LocalTime;
 import java.time.format.DateTimeFormatter;
+import java.util.ArrayList;
+import java.util.List;
+import java.util.Map;
 import java.util.Scanner;
-import java.util.Set;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
 public class InputController {
     private final String PARTICIPAN_REGEX = "^[\\p{L}]+;[\\p{L}]+;\\+?\\d{7,15};[\\w.%+-]+@[A-Za-z0-9.-]+\\.[A-Za-z]{2,};[\\p{L}0-9 ]+;[\\p{L}]+$";
     private Scanner scan;
-    private Set<Participant> participantList;
+    private ParticipantsList participantList;
     private FullEvent kinomichiEvent;
 
-    InputController(Set<Participant> participantList, FullEvent event){
+    InputController(ParticipantsList participantList, FullEvent event){
         this.participantList = participantList;
         this.kinomichiEvent = event;
 
@@ -34,19 +36,12 @@ public class InputController {
         boolean succes = false;
         String input = "";
         while (!succes){
-            ActionMenu.displayAddParticipantAction();
+            ActionMenu.displayAddParticipant();
             input = readUserInput();
             if(!input.equalsIgnoreCase("b")){
                 String[] toStore = handleAddParticipantAction(input);
                 if(toStore != null){
-                    succes = participantList.add(new Participant(
-                            toStore[0], //firstname
-                            toStore[1], //lastname
-                            toStore[2], //phone
-                            toStore[3], //email
-                            toStore[4], //club
-                            ParticipantType.fromString(toStore[5]) //type
-                    ));
+                    succes = participantList.addParticipant(toStore);
                 }
                 if(succes) System.out.println("Participant added");
             }else{
@@ -74,6 +69,9 @@ public class InputController {
             default -> System.out.println("Oops! there was an error");
         }
     }
+    /*
+    * will see if refactor to only use 1 string a input and transfer the creation to FullEvent
+    * */
     public void addSession(){
         String name, strDate ,strTime;
         long duration;
@@ -135,7 +133,7 @@ public class InputController {
         String name, strDate;
         int beds;
         LocalDate date = null;
-        LocalTime time = null;
+        LocalTime time;
 
         System.out.println("#### lodgement ####");
         System.out.println("Enter the name of the lodgement");
@@ -178,6 +176,33 @@ public class InputController {
         }catch(Exception e){
             System.out.println("Wrong time format please try again");
             return null;
+        }
+    }
+
+    public void addPaticipantToSession(){
+        Participant selected = null;
+        List<Activity> selectedActivity = new ArrayList<>();
+        String input = "";
+        Map<Integer, Participant> partMap = participantList.toMap();
+        Map<Integer, Activity> actiMap = kinomichiEvent.ActivityToMapForSelection("session");
+
+        ActionMenu.displayAddPrticipantToSession();
+        partMap.forEach((key, val) -> System.out.println(key+". "+val));
+        input = this.readUserInput();
+        selected = partMap.get(Integer.parseInt(input));
+        System.out.println("selected => "+selected);
+
+        actiMap.forEach((key, val) -> System.out.println(key+". "+val));
+        input = this.readUserInput();
+        String[] tmp = DataReader.readSingleLineCSV(input);
+        for (String key : tmp) {
+            Activity value = actiMap.get(Integer.parseInt(key));
+            if (value != null) {
+                selectedActivity.add(value);
+            }
+        }
+        for (Activity activity : selectedActivity) {
+            activity.addParticipantToActivity(selected);
         }
     }
 }

@@ -1,7 +1,7 @@
 package kinomichi;
 
 import kinomichi.model.FullEvent;
-import kinomichi.model.Participant;
+import kinomichi.model.ParticipantsList;
 import kinomichi.utils.ActionMenu;
 
 import java.util.*;
@@ -9,7 +9,7 @@ import java.util.*;
 public class MainController {
     InputController controller;
     DisplayController displayer;
-    private Set<Participant> participantList = new HashSet<>();
+    private ParticipantsList participantList = new ParticipantsList();
     private FullEvent kinomichiEvent = new FullEvent();
 
 
@@ -23,8 +23,10 @@ public class MainController {
     public void handleMainMenuAction(String input){
         switch (input.toLowerCase()){
             case "p" -> addParticipant();
+            case "r" -> registerParticipant();//System.out.println("register");
             case "a" -> displayActivityAction();
-            case "l" -> listParticipant();
+            case "u" -> System.out.println("update");
+            case "l" -> System.out.println("listing");
             case "i" -> System.out.println("infos");
             default -> System.out.println("Error : action unknown, please try again");
         }
@@ -49,9 +51,8 @@ public class MainController {
         this.controller.addParticipant();
     }
     public void addActivity(String input){this.controller.addActivity(input);}
-    public void listParticipant(){
-        this.displayer.listParticipant();
-    }
+    public void registerParticipant(){this.controller.addPaticipantToSession();}
+    //public void listParticipant(){this.displayer.listParticipant();}
 
 
 

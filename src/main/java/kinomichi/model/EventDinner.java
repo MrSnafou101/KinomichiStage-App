@@ -5,7 +5,7 @@ import java.time.format.DateTimeFormatter;
 import java.util.Set;
 
 public class EventDinner extends Activity{
-    private Set<Participant> participants;
+    private ParticipantsList participants;
     private String description;
 
     public EventDinner(String name, LocalDateTime startDate, String description, ActivityPricing pricing) {
