@@ -4,5 +4,5 @@ public class WrongDateFormat extends RuntimeException {
     public WrongDateFormat(String message) {
         super(message);
     }
-    public WrongDateFormat(Exception e) {super(e);}
+    public WrongDateFormat(Exception e) {super(e.getMessage());}
 }

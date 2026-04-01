@@ -27,6 +27,6 @@ public class Lodgement extends Activity {
     }
 
     public String toString(){
-        return "Lodgement of "+ this.availableBed + " beds is " + ((isAvailabe)? "available" : "not available");
+        return this.getActivityName() + " of "+ this.availableBed + " beds is " + ((isAvailabe)? "available" : "not available");
     }
 }

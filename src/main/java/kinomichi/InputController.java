@@ -1,5 +1,6 @@
 package kinomichi;
 
+import kinomichi.customExceptions.InvalidInputExceptions;
 import kinomichi.model.*;
 import kinomichi.utils.ActionMenu;
 import kinomichi.utils.DataReader;
@@ -7,13 +8,14 @@ import kinomichi.utils.DataReader;
 import java.time.LocalDate;
 import java.time.LocalDateTime;
 import java.time.LocalTime;
-import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
 import java.util.Scanner;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
+
+import static kinomichi.utils.DataParser.*;
 
 public class InputController {
     private final String PARTICIPAN_REGEX = "^[\\p{L}]+;[\\p{L}]+;\\+?\\d{7,15};[\\w.%+-]+@[A-Za-z0-9.-]+\\.[A-Za-z]{2,};[\\p{L}0-9 ]+;[\\p{L}]+$";
@@ -155,54 +157,39 @@ public class InputController {
         }
     }
 
-
-    private LocalDate makeDateFromString(String dateToParse){
-        DateTimeFormatter formatter = DateTimeFormatter.ofPattern("dd/MM/yyyy");
-        try{
-            return LocalDate.parse(dateToParse, formatter);
-        }catch(Exception e){
-            System.out.println("Wrong date format please try again");
-            return null;
-        }
-    }
-    private LocalDate isDatePassed(LocalDate toCheck){
-        if(toCheck == null || toCheck.isBefore(LocalDate.now()))return null;
-        else return toCheck;
-    }
-    private LocalTime makeTimeFromString(String timeToParse){
-        DateTimeFormatter formatter = DateTimeFormatter.ofPattern("HH:mm");
-        try{
-            return LocalTime.parse(timeToParse, formatter);
-        }catch(Exception e){
-            System.out.println("Wrong time format please try again");
-            return null;
-        }
-    }
-
     public void addPaticipantToSession(){
         Participant selected = null;
         List<Activity> selectedActivity = new ArrayList<>();
         String input = "";
+        int parsedInput;
         Map<Integer, Participant> partMap = participantList.toMap();
         Map<Integer, Activity> actiMap = kinomichiEvent.ActivityToMapForSelection("session");
 
-        ActionMenu.displayAddPrticipantToSession();
+        ActionMenu.displayAddParticipantToSession();
         partMap.forEach((key, val) -> System.out.println(key+". "+val));
         input = this.readUserInput();
-        selected = partMap.get(Integer.parseInt(input));
-        System.out.println("selected => "+selected);
+        if(!input.equalsIgnoreCase("b")){
+            try{
+                parsedInput = Integer.parseInt(input);
+                selected = partMap.get(parsedInput);
+                System.out.println("selected => "+selected);
 
-        actiMap.forEach((key, val) -> System.out.println(key+". "+val));
-        input = this.readUserInput();
-        String[] tmp = DataReader.readSingleLineCSV(input);
-        for (String key : tmp) {
-            Activity value = actiMap.get(Integer.parseInt(key));
-            if (value != null) {
-                selectedActivity.add(value);
+                actiMap.forEach((key, val) -> System.out.println(key+". "+val));
+                input = this.readUserInput();
+                String[] tmp = DataReader.readSingleLineCSV(input);
+                for (String key : tmp) {
+                    Activity value = actiMap.get(Integer.parseInt(key));
+                    if (value != null) {
+                        selectedActivity.add(value);
+                    }
+                }
+                for (Activity activity : selectedActivity) {
+                    if(activity.addParticipantToActivity(selected))System.out.printf("REGISTERED to %s \n", activity);
+                    else System.out.printf("ERR failed to register to %s \n", activity);
+                }
+            } catch (InvalidInputExceptions e) {
+                System.out.println("Invalid input, please try again");
             }
-        }
-        for (Activity activity : selectedActivity) {
-            activity.addParticipantToActivity(selected);
         }
     }
 }

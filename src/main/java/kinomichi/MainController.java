@@ -17,6 +17,12 @@ public class MainController {
         this.controller = new InputController(participantList, kinomichiEvent);
         this.displayer = new DisplayController(participantList, kinomichiEvent);
     }
+    MainController(ParticipantsList list, FullEvent event){
+        this.participantList = list;
+        kinomichiEvent = event;
+        this.controller = new InputController(list, event);
+        this.displayer = new DisplayController(list, event);
+    }
 
     public String readUserInput(){return this.controller.readUserInput();}
 
@@ -26,11 +32,15 @@ public class MainController {
             case "r" -> registerParticipant();//System.out.println("register");
             case "a" -> displayActivityAction();
             case "u" -> System.out.println("update");
-            case "l" -> System.out.println("listing");
+            case "l" -> listingMenu();//System.out.println("listing");
             case "i" -> System.out.println("infos");
             default -> System.out.println("Error : action unknown, please try again");
         }
     }
+    public void addParticipant(){
+        this.controller.addParticipant();
+    }
+    public void registerParticipant(){this.controller.addPaticipantToSession();}
 
     public void displayActivityAction(){
         String input = "";
@@ -46,14 +56,25 @@ public class MainController {
             }
         }
     }
-
-    public void addParticipant(){
-        this.controller.addParticipant();
-    }
     public void addActivity(String input){this.controller.addActivity(input);}
-    public void registerParticipant(){this.controller.addPaticipantToSession();}
-    //public void listParticipant(){this.displayer.listParticipant();}
 
+    public void listingMenu(){
+        String input = "";
+        while (!input.equalsIgnoreCase("b")){
+            ActionMenu.displayListingMenu();
+            input = readUserInput().toLowerCase();
+            switch (input){
+                case "p" -> this.displayer.listParticipants();
+                case "p2" -> this.displayer.listParticipantsWithSessions();
+                case "s" -> this.displayer.listSesions();
+                case "s2" -> this.displayer.listSesionsWithParticipants();
+                case "d" -> this.displayer.listDinner();
+                case "d2" -> this.displayer.listDinnersWithParticipants();
+                case "l" -> this.displayer.listlodgement();
+                default -> System.out.println("Error : action unknown, please try again");
+            }
+        }
+    }
 
 
 }

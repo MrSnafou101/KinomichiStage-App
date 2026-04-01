@@ -6,7 +6,7 @@ import java.util.Set;
 
 public class KinomichiSesison extends Activity{
     private long durationInMinute;
-    private ParticipantsList participants;
+    //private ParticipantsList participants;
     private Participant animator;
 
     public KinomichiSesison(String name, LocalDateTime startDate, long duration, ActivityPricing pricing) {
@@ -26,7 +26,7 @@ public class KinomichiSesison extends Activity{
 
     public String toString(){
         DateTimeFormatter formatter = DateTimeFormatter.ofPattern("dd-MM-yyyy HH:mm");
-        return "Session %s on %s for %s minutes added".formatted(
+        return "Session %s on %s for %s minutes".formatted(
                 this.getActivityName(),this.getActivityDate().format(formatter), this.durationInMinute
         );
     }

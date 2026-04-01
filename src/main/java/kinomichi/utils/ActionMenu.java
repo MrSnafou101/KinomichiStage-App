@@ -44,12 +44,31 @@ public class ActionMenu {
             ==========================================
             Select a participant from the list
             Then select the sessions like so : 1;2;3
+            
+            press B or b to go back
            ===========================================
+            """;
+    private static final String LISTING_MENU = """
+            #### Listing ####
+            ==========================================
+            What do you want to see
+            
+            P => participants
+            P2 => participants + registered sessions
+            S => sessions
+            S2 => sessions + participants
+            D => Dinners
+            D2 => Dinners + participants
+            L => lodgement
+            
+            press B or b to go back
+            ==========================================
             """;
 
     public static void displayMainMenu(){System.out.println(MAIN_MENU);}
     public static void displayAddParticipant(){System.out.println(ADD_PARTICIPANT);}
     public static void displayAddActivityMenu(){System.out.println(ADD_ACTIVITY);}
-    public static void displayAddPrticipantToSession(){System.out.println(ADD_PARTICIPANT_TO_SESSIONS);}
+    public static void displayAddParticipantToSession(){System.out.println(ADD_PARTICIPANT_TO_SESSIONS);}
+    public static void displayListingMenu(){System.out.println(LISTING_MENU);}
 
 }

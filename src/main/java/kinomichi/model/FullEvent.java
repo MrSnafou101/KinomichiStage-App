@@ -39,4 +39,11 @@ public class FullEvent {
                 ));
     }
 
+    public List<Activity> getSessionsForParticipants(String firstname, String lastname){
+        return this.activitySet.stream()
+                .filter(a -> a.getClass() == KinomichiSesison.class)
+                .filter(s -> s.isParticipantRegistered(firstname, lastname))
+                .toList();
+    }
+
 }
