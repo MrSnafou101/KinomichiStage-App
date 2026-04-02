@@ -76,7 +76,7 @@ public class DataReader {
         LocalDate date = DataParser.makeDateFromString(data[1]);
         LocalTime time = DataParser.makeTimeFromString(data[2]);
         kinomichiEvent.addActivity(
-                new KinomichiSesison(
+                new KinomichiSession(
                         data[0],
                         LocalDateTime.of(date, time),
                         Long.parseLong(data[3]),

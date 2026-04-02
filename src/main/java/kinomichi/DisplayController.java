@@ -4,8 +4,8 @@ import kinomichi.model.*;
 
 import java.util.List;
 import java.util.Map;
+import java.util.Set;
 import java.util.stream.Collectors;
-import java.util.stream.Stream;
 
 public class DisplayController {
     private ParticipantsList participantList;
@@ -47,20 +47,42 @@ public class DisplayController {
 
     public void listSesions(){
         this.kinomichiEvent.getActivitySet().stream().filter(
-                a -> a.getClass() == KinomichiSesison.class
+                a -> a.getClass() == KinomichiSession.class
         ).forEach(System.out::println);
     }
 
     public void listSesionsWithParticipants(){
+        List<Activity> toShow = this.kinomichiEvent.getActivitySet().stream().filter(
+                a -> a.getClass() == KinomichiSession.class
+        ).toList();
+
+        StringBuilder str = new StringBuilder();
+        for (Activity a : toShow){
+            str.append(a.toString()).append("\n");
+            Set<Participant> resutl = a.getParticipants();
+            if(resutl.isEmpty()){
+                str.append("- no registration yet").append("\n");
+            }else{
+                for(Participant p : resutl){
+                    if(((KinomichiSession)a).getAnimator().equals(p)){
+                        str.append("- ").append(a).append(" ANIMATOR ").append("\n");
+                    }else{
+                        str.append("- ").append(a).append("\n");
+                    }
+                }
+            }
+        }
+        System.out.println(str);
     }
 
     public void listDinner(){
         this.kinomichiEvent.getActivitySet().stream().filter(
                 a -> a.getClass() == EventDinner.class
-        ).forEach(System.out::println);
+        ).forEach(a -> System.out.printf("%s | Nbr meals : %s%n", a.toString(),a.getNbrRegistered()));
     }
 
     public void listDinnersWithParticipants(){
+        System.out.println("To be Done");
     }
 
     public void listlodgement(){

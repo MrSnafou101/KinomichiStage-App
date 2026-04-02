@@ -10,6 +10,7 @@ public class ActionMenu {
             What do you want to do ?
             P => Add participant
             R => Register participant
+            T => Take a room
             A => Add activity
             U => Update activity
             L => list participants
@@ -48,6 +49,34 @@ public class ActionMenu {
             press B or b to go back
            ===========================================
             """;
+    private static final String UPDATE_ACTIVITY_MENU = """
+            **** Update activity ****
+            ==========================================
+            A => Set/update session's animator
+            T => Update activity
+            D => Delete activity
+            
+            press B or b to go back
+            ==========================================
+            """;
+    private static final String DELETE_OPTION = """
+            **** deleteing ****
+            ==========================================
+            Select an activity to delete by typing the Id
+            
+            press B or b to go back
+            ==========================================
+            """;
+    private static final String UPDATE_ACTIVITY = """
+            **** updating ****
+            ==========================================
+            Select an activity to update
+            Change values or press enter to keep the current one
+            
+            
+            press B or b to go back
+            ==========================================
+            """;
     private static final String LISTING_MENU = """
             #### Listing ####
             ==========================================
@@ -69,6 +98,9 @@ public class ActionMenu {
     public static void displayAddParticipant(){System.out.println(ADD_PARTICIPANT);}
     public static void displayAddActivityMenu(){System.out.println(ADD_ACTIVITY);}
     public static void displayAddParticipantToSession(){System.out.println(ADD_PARTICIPANT_TO_SESSIONS);}
+    public static void displayUpdateMenu(){System.out.println(UPDATE_ACTIVITY_MENU);}
+    public static void displayDeleteOption(){System.out.println(DELETE_OPTION);}
+    public static void displayUpdateOption(){System.out.println(UPDATE_ACTIVITY);}
     public static void displayListingMenu(){System.out.println(LISTING_MENU);}
 
 }

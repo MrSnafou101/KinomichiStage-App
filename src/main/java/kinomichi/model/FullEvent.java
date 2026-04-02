@@ -18,18 +18,36 @@ public class FullEvent {
                 .findFirst().get();
     }
     public void removeActivity(Activity toRemove){this.activitySet.remove(toRemove);}
-
     public void displayActivity(){
         this.activitySet.forEach(System.out::println);
     }
 
-    public Map<Integer, Activity> ActivityToMapForSelection(String classStr){
-        Class c = (classStr.equalsIgnoreCase("lodgement"))? Lodgement.class :
-                (classStr.equalsIgnoreCase("dinner"))? EventDinner.class : KinomichiSesison.class;
+    public Activity stillAvailableRoomsForNbrBed(int nbrBeds){
+        List<Activity> rooms = getFilteredActivities("lodgement");
+        return rooms.stream().filter(r ->
+                ((Lodgement) r).isAvailabe() && ((Lodgement)r).getAvailableBed() == nbrBeds)
+                .findFirst().get();
+    }
 
-        List<Activity> tmpList = activitySet.stream()
+    public List<Activity> getFilteredActivities(String classStr){
+        Class c = (classStr.equalsIgnoreCase("lodgement"))? Lodgement.class :
+                (classStr.equalsIgnoreCase("dinner"))? EventDinner.class : KinomichiSession.class;
+
+        return activitySet.stream()
                 .filter(a -> a.getClass() == c)
                 .toList();
+    }
+
+    public Map<Integer, Activity> ActivityToMapForSelection(){
+        return IntStream.range(0, activitySet.size())
+                .boxed()
+                .collect(Collectors.toMap(
+                        i -> i,
+                        activitySet.stream().toList()::get
+                ));
+    }
+    public Map<Integer, Activity> ActivityToMapForSelection(String classStr){
+        List<Activity> tmpList = getFilteredActivities(classStr);
 
         return IntStream.range(0, tmpList.size())
                 .boxed()
@@ -41,7 +59,7 @@ public class FullEvent {
 
     public List<Activity> getSessionsForParticipants(String firstname, String lastname){
         return this.activitySet.stream()
-                .filter(a -> a.getClass() == KinomichiSesison.class)
+                .filter(a -> a.getClass() == KinomichiSession.class)
                 .filter(s -> s.isParticipantRegistered(firstname, lastname))
                 .toList();
     }

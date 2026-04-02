@@ -3,6 +3,7 @@ package kinomichi;
 import kinomichi.customExceptions.InvalidInputExceptions;
 import kinomichi.model.*;
 import kinomichi.utils.ActionMenu;
+import kinomichi.utils.DataParser;
 import kinomichi.utils.DataReader;
 
 import java.time.LocalDate;
@@ -95,7 +96,7 @@ public class InputController {
         }
         System.out.println("Enter the duration of the session in minutes");
         duration = Long.parseLong(this.readUserInput());
-        KinomichiSesison session = new KinomichiSesison(name, LocalDateTime.of(date, time), duration, null);
+        KinomichiSession session = new KinomichiSession(name, LocalDateTime.of(date, time), duration, null);
         if(kinomichiEvent.addActivity(session)){
             System.out.println(session);
         }else{
@@ -191,5 +192,147 @@ public class InputController {
                 System.out.println("Invalid input, please try again");
             }
         }
+    }
+
+    public void rentARoom() {
+        Participant selected = null;
+        String input = "";
+        int parsedInput;
+        Activity rentable;
+        Map<Integer, Participant> partMap = participantList.toMap();
+        System.out.print("Select a participant or press b/B to go back");
+
+        partMap.forEach((key, val) -> System.out.println(key+") "+val));
+        input = this.readUserInput();
+        if(!input.equalsIgnoreCase("b")){
+            try{
+                parsedInput = Integer.parseInt(input);
+                selected = partMap.get(parsedInput);
+            } catch (InvalidInputExceptions e) {
+                System.out.println("Invalid input, please try again");
+            }
+            System.out.println("selected => "+selected);
+            System.out.println("How much bed are needed ?");
+            input = this.readUserInput();
+            try{
+                parsedInput = Integer.parseInt(input);
+                rentable = this.kinomichiEvent.stillAvailableRoomsForNbrBed(parsedInput);
+                if(rentable != null){
+                    ((Lodgement)rentable).setOccupent(selected);
+                    System.out.println(rentable.getActivityName() + " has been attributed to" + selected.getFirstName() + " " + selected.getLastName());
+                }else{
+                    System.out.println("No more room available");
+                }
+            }catch(InvalidInputExceptions e){
+                System.out.println("Invalid input, please try again");
+            }
+        }
+    }
+
+    public void updateSessionAnimator(){
+        String input = "";
+        int parsedInput;
+        Activity selected;
+        Participant animator;
+        Map<Integer, Participant> partMap = participantList.toMap();
+        Map<Integer, Activity> actiMap = kinomichiEvent.ActivityToMapForSelection("session");
+        System.out.println("*** updating animator ***");
+        actiMap.forEach((key, val) -> System.out.println(key+") "+val));
+        input = this.readUserInput();
+        if(!input.equalsIgnoreCase("b")){
+            try{
+                parsedInput = Integer.parseInt(input);
+                selected = actiMap.get(parsedInput);
+                System.out.println("selected => "+selected);
+
+                partMap.forEach((key, val) -> System.out.println(key+") "+val));
+                try {
+                    input = this.readUserInput();
+                    parsedInput = Integer.parseInt(input);
+                    animator = partMap.get(parsedInput);
+                    if (animator.getType() != ParticipantType.ANIMATOR){
+                        System.out.println("This participant isn't an animator");
+                    }else{
+                        ((KinomichiSession)selected).setAnimator(animator);
+                        selected.addParticipantToActivity(animator);
+                    }
+                }catch (InvalidInputExceptions e) {
+                    System.out.println("Invalid input, please try again");
+                }
+            } catch (InvalidInputExceptions e) {
+                System.out.println("Invalid input, please try again");
+            }
+        }
+    }
+
+    public void updateActivity(){
+        String input = "";
+        int parsedInput;
+        Activity selected;
+        LocalDate newDate = null;
+        LocalTime newTime = null;
+        ActionMenu.displayUpdateOption();
+        Map<Integer, Activity> actiMap = kinomichiEvent.ActivityToMapForSelection();
+        actiMap.forEach((key, val) -> System.out.println(key+") "+val));
+        input = this.readUserInput();
+        if(!input.equalsIgnoreCase("b")){
+            try{
+                parsedInput = Integer.parseInt(input);
+                selected = actiMap.get(parsedInput);
+                System.out.println("selected => "+selected);
+                System.out.printf("Name : %s\n", selected.getActivityName());
+                System.out.print("New name : ");
+                input = this.readUserInput();
+                if(!input.isEmpty()){
+                    selected.setActivityName(input);
+                }
+                System.out.printf("Date : %s\n", selected.getActivityDate());
+                System.out.print("New date (dd/mm/yyyy) : ");
+                input = this.readUserInput();
+                if(!input.isEmpty()){
+                    newDate = isDatePassed(makeDateFromString(input));
+                    if(newDate == null) System.out.println("Invalid date");
+                }
+                System.out.print("New time (hh:mm) : ");
+                input = this.readUserInput();
+                if(!input.isEmpty()){
+                    newTime = makeTimeFromString(input);
+                }
+                selected.setDate(LocalDateTime.of(
+                        (newDate == null) ? selected.getDate() : newDate,
+                        (newTime == null) ? selected.getTime() : newTime
+                    )
+                );
+                System.out.printf("Activity updated : %s\n",selected);
+            } catch (InvalidInputExceptions e) {
+                System.out.println("Invalid input, please try again");
+            }
+        }
+    }
+
+    public void deleteActivity(){
+        String input = "";
+        int parsedInput;
+        Activity selected;
+        ActionMenu.displayDeleteOption();
+        Map<Integer, Activity> actiMap = kinomichiEvent.ActivityToMapForSelection();
+        actiMap.forEach((key, val) -> System.out.println(key+") "+val));
+        input = this.readUserInput();
+        if(!input.equalsIgnoreCase("b")){
+            try{
+                parsedInput = Integer.parseInt(input);
+                selected = actiMap.get(parsedInput);
+                System.out.println("selected => "+selected);
+                System.out.println("Are you sure you want to delete this activity ? Y/N");
+                input = this.readUserInput();
+                if(input.equalsIgnoreCase("y")){
+                    kinomichiEvent.removeActivity(selected);
+                }
+            } catch (InvalidInputExceptions e) {
+                System.out.println("Invalid input, please try again");
+            }
+        }
+
+
     }
 }

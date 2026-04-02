@@ -30,8 +30,9 @@ public class MainController {
         switch (input.toLowerCase()){
             case "p" -> addParticipant();
             case "r" -> registerParticipant();//System.out.println("register");
+            case "t" -> rentARoom();
             case "a" -> displayActivityAction();
-            case "u" -> System.out.println("update");
+            case "u" -> updateOptions();//System.out.println("update");
             case "l" -> listingMenu();//System.out.println("listing");
             case "i" -> System.out.println("infos");
             default -> System.out.println("Error : action unknown, please try again");
@@ -76,5 +77,22 @@ public class MainController {
         }
     }
 
+    public void rentARoom(){
+        this.controller.rentARoom();
+    }
+
+    public void updateOptions(){
+        String input = "";
+        while (!input.equalsIgnoreCase("b")){
+            ActionMenu.displayUpdateMenu();
+            input = readUserInput().toLowerCase();
+            switch (input){
+                case "a" -> this.controller.updateSessionAnimator();
+                case "t" -> this.controller.updateActivity();
+                case "d" -> this.controller.deleteActivity();
+                default -> System.out.println("Error : action unknown, please try again");
+            }
+        }
+    }
 
 }

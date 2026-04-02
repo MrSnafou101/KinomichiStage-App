@@ -2,18 +2,17 @@ package kinomichi.model;
 
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
-import java.util.Set;
 
-public class KinomichiSesison extends Activity{
+public class KinomichiSession extends Activity{
     private long durationInMinute;
     //private ParticipantsList participants;
     private Participant animator;
 
-    public KinomichiSesison(String name, LocalDateTime startDate, long duration, ActivityPricing pricing) {
+    public KinomichiSession(String name, LocalDateTime startDate, long duration, ActivityPricing pricing) {
         super(name, startDate, pricing);
         this.durationInMinute = duration;
     }
-
+    public Participant getAnimator(){return this.animator;}
     //public Long activityDuration(){return ChronoUnit.HOURS.between(getActivityDate(), this.endDateAndHour);}
     public long getSessionDuration(){return this.durationInMinute;}
     public LocalDateTime getSessionEnd(){return this.getActivityDate().plusMinutes(this.durationInMinute);}
