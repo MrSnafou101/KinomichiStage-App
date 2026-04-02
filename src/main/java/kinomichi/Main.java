@@ -14,6 +14,21 @@ public class Main {
         DataReader.readFromCSV();
         System.out.println("Data Loaded");
 
+//        DataReader.participantList
+//                .addParticipant(
+//                        new Participant(
+//                                "Michel",
+//                                "Dupont",
+//                                "+32569874125",
+//                                "m.dupont@outlook.be",
+//                                "Club",
+//                                ParticipantType.ADULT
+//                                )
+//                );
+
+
+//        DataReader.saveIntoCSV(DataReader.participantList, DataReader.kinomichiEvent);
+
         //actionHandler = new MainController();
         actionHandler = new MainController(DataReader.participantList, DataReader.kinomichiEvent);
 

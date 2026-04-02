@@ -1,8 +1,9 @@
 package kinomichi.model;
 
+import kinomichi.utils.DataParser;
+
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
-import java.util.Set;
 
 public class EventDinner extends Activity{
     //private ParticipantsList participants;
@@ -14,6 +15,19 @@ public class EventDinner extends Activity{
     }
 
     public String getDescription(){return this.description;}
+
+    public String toSaveString() {
+        //&&name;dd/mm/yyy;hh:mm;description
+
+        return "&&%s;%s;%s,%s"
+                .formatted(
+                        this.getActivityName(),
+                        DataParser.makeStringFromDate(this.getDate()),
+                        DataParser.makeStringFromTime(this.getTime()),
+                        this.description
+                        );
+    }
+
     public String toString(){
         DateTimeFormatter formatter = DateTimeFormatter.ofPattern("dd-MM-yyyy HH:mm");
         return "%s on %s | description: %s".formatted(

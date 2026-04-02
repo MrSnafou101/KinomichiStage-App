@@ -104,6 +104,7 @@ public class InputController {
             System.out.println(kinomichiEvent.getActivityFromName(name).toString());
         }
     }
+
     public void addDinner(){
         String name, strDate ,strTime, description;
         LocalDate date = null;
@@ -132,6 +133,7 @@ public class InputController {
             System.out.println(kinomichiEvent.getActivityFromName(name).toString());
         }
     }
+
     public void addLodgement(){
         String name, strDate;
         int beds;
@@ -332,7 +334,7 @@ public class InputController {
                 System.out.println("Invalid input, please try again");
             }
         }
-
-
     }
+
+
 }

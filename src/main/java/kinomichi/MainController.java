@@ -3,6 +3,7 @@ package kinomichi;
 import kinomichi.model.FullEvent;
 import kinomichi.model.ParticipantsList;
 import kinomichi.utils.ActionMenu;
+import kinomichi.utils.DataReader;
 
 import java.util.*;
 
@@ -35,6 +36,7 @@ public class MainController {
             case "u" -> updateOptions();//System.out.println("update");
             case "l" -> listingMenu();//System.out.println("listing");
             case "i" -> System.out.println("infos");
+            case "s" -> DataReader.saveIntoCSV(participantList, kinomichiEvent);
             default -> System.out.println("Error : action unknown, please try again");
         }
     }

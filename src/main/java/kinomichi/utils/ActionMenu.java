@@ -15,6 +15,7 @@ public class ActionMenu {
             U => Update activity
             L => list participants
             I => Other infos
+            S => Save data to CSV
             Q => Quit
             =======================================
             """;

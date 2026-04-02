@@ -35,6 +35,8 @@ public abstract class Activity {
         return this.participants.participantExist(firstname, lastname);
     }
 
+    public abstract String toSaveString();
+
     public String toString(){
         return this.activityName + " on " + this.activityDate;
     }

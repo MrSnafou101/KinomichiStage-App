@@ -1,0 +1,26 @@
+!!participants
+!!firstname;lastname;phoneNumber;email;clubName;participantType
+**Emma;Watson;+32695874652;e.watson@outlook.uk;Hogward;adult
+**Cillian;Murphy;+326985478851;peaky.blinders@birmingham.uk;Garrison;adult
+**Anna;De armas;+32598632541;darmas@gmail.cu;Havan club;adult
+**Damian;Lewis;+32659874125;d.lewis@easy.company.uk;101st airborne;adult
+**Jackie;Chan;+32489652147;kung.fu@panda.cn;Jade palace;animator
+!!session
+!!name;dd/mm/yyy;hh:mm;duration
+##Session 1;05/06/2026;09:30;120
+##Session 2;05/06/2026;12:00;120
+##Session 3;05/06/2026;15:00;90
+##Session 4;05/06/2026;09:30;90
+##Session 5;06/06/2026;12:00;120
+##Session 6;06/06/2026;15:00;90
+!!dinner
+!!name;dd/mm/yyy;hh:mm;description
+&&Souper de 20H;05/06/2026;20:00;bonne app
+&&Souper de fin;06/06/2026;18:00;aperooooo
+!!lodgement
+!!name;dd/mm/yyy;nbBed;
+==Room 1;05/06/2026;2
+==Room 2;05/06/2026;4
+==Room 3;05/06/2026;4
+==Room 4;05/06/2026;2
+==Room 5;05/06/2026;2

@@ -1,5 +1,7 @@
 package kinomichi.model;
 
+import kinomichi.utils.DataParser;
+
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
 
@@ -21,6 +23,17 @@ public class KinomichiSession extends Activity{
             this.animator = animator;
             return true;
         }else{return false;}
+    }
+
+    public String toSaveString() {
+        //##name;dd/mm/yyy;hh:mm;duration
+        return "##%s;%s;%s%s"
+                .formatted(
+                        this.getActivityName(),
+                        DataParser.makeStringFromDate(this.getDate()),
+                        DataParser.makeStringFromTime(this.getTime()),
+                        this.durationInMinute
+                );
     }
 
     public String toString(){

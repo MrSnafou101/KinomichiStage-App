@@ -52,4 +52,8 @@ public class Participant {
         return this.firstName.hashCode() + this.lastName.hashCode();
     }
 
+    public String toSaveString() {
+        //**firstname;lastname;phoneNumber;email;clubName;participantType
+        return "**%s;%s;%s;%s;%s;%s".formatted(this.firstName, this.lastName,this.phone,this.email,this.club,this.type.toString());
+    }
 }

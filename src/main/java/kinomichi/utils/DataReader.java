@@ -2,14 +2,14 @@ package kinomichi.utils;
 
 import kinomichi.model.*;
 
-import java.io.BufferedReader;
-import java.io.FileReader;
-import java.io.IOException;
+import java.io.*;
 import java.time.LocalDate;
 import java.time.LocalDateTime;
 import java.time.LocalTime;
+import java.util.Arrays;
 
 public class DataReader {
+    private static final String FILE_PATH = "src/main/java/kinomichi/rsc/data.csv";
     public static ParticipantsList participantList = new ParticipantsList();
     public static FullEvent kinomichiEvent = new FullEvent();
 
@@ -18,7 +18,7 @@ public class DataReader {
     }
 
     public static void readFromCSV(){
-        try (BufferedReader br = new BufferedReader(new FileReader("src/main/java/kinomichi/rsc/data.csv"))) {
+        try (BufferedReader br = new BufferedReader(new FileReader(FILE_PATH))) {
             String line, prefix, rest;
             while ((line = br.readLine()) != null) {
                 if(!line.startsWith("!!")){
@@ -89,4 +89,44 @@ public class DataReader {
         String[] data = readSingleLineCSV(rest);
         participantList.addParticipant(data);
     }
+
+    public static void saveIntoCSV(ParticipantsList participantList, FullEvent kinomichiEvent){
+        try (BufferedWriter writer = new BufferedWriter(new FileWriter(FILE_PATH))) {
+            writer.write("!!participants");
+            writer.newLine();
+            writer.write("!!firstname;lastname;phoneNumber;email;clubName;participantType");
+            writer.newLine();
+            for(Participant p : participantList.getParticipants()){
+                writer.write(p.toSaveString());
+                writer.newLine();
+            }
+            writer.write("!!session");
+            writer.newLine();
+            writer.write("!!name;dd/mm/yyy;hh:mm;duration");
+            writer.newLine();
+            for(Activity a : kinomichiEvent.getFilteredActivities("session")){
+                writer.write(a.toSaveString());
+                writer.newLine();
+            }
+            writer.write("!!dinner");
+            writer.newLine();
+            writer.write("!!name;dd/mm/yyy;hh:mm;description");
+            writer.newLine();
+            for(Activity a : kinomichiEvent.getFilteredActivities("dinner")){
+                writer.write(a.toSaveString());
+                writer.newLine();
+            }
+            writer.write("!!lodgement");
+            writer.newLine();
+            writer.write("!!name;dd/mm/yyy;nbBed");
+            writer.newLine();
+            for(Activity a : kinomichiEvent.getFilteredActivities("lodgement")){
+                writer.write(a.toSaveString());
+                writer.newLine();
+            }
+        } catch (IOException e) {
+            System.out.println("Error writing file.");
+        }
+    }
+
 }

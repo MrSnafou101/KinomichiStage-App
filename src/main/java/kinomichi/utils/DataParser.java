@@ -17,6 +17,10 @@ public class DataParser {
             return null;
         }
     }
+    public static String makeStringFromDate(LocalDate date){
+        DateTimeFormatter formatter = DateTimeFormatter.ofPattern("dd/MM/yyyy");
+        return date.format(formatter);
+    }
     public static LocalDate isDatePassed(LocalDate toCheck){
         if(toCheck == null || toCheck.isBefore(LocalDate.now()))return null;
         else return toCheck;
@@ -29,5 +33,9 @@ public class DataParser {
             System.out.println("Wrong time format please try again");
             return null;
         }
+    }
+    public static String makeStringFromTime(LocalTime time){
+        DateTimeFormatter formatter = DateTimeFormatter.ofPattern("HH:mm");
+        return time.format(formatter);
     }
 }

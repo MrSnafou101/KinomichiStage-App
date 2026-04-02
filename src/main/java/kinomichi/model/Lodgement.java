@@ -1,5 +1,7 @@
 package kinomichi.model;
 
+import kinomichi.utils.DataParser;
+
 import java.time.LocalDateTime;
 
 public class Lodgement extends Activity {
@@ -24,6 +26,17 @@ public class Lodgement extends Activity {
     public void removeOccupent(){
         this.isAvailabe = true;
         this.occupent = null;
+    }
+
+    public String toSaveString() {
+        //==name;dd/mm/yyy;nbBed;
+        return "==%s;%s;%s;%s"
+                .formatted(
+                        this.getActivityName(),
+                        DataParser.makeStringFromDate(this.getDate()),
+                        DataParser.makeStringFromTime(this.getTime()),
+                        this.availableBed
+                );
     }
 
     public String toString(){
