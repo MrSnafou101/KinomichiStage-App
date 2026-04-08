@@ -46,49 +46,63 @@ public class DataReader {
         String[] data = readSingleLineCSV(rest);
         LocalDate date = DataParser.makeDateFromString(data[1]);
         LocalTime time = LocalTime.of(0,0);
-        kinomichiEvent.addActivity(
-                new Lodgement(
-                        data[0],
-                        LocalDateTime.of(date, time),
-                        Integer.parseInt(data[2]),
-                        null
-                )
+        Lodgement tmp = new Lodgement(
+                data[0],
+                LocalDateTime.of(date, time),
+                Integer.parseInt(data[2]),
+                null
         );
+        if(data.length > 4) tmp.setOccupent(getParticipantFromId(data[4]));
+        kinomichiEvent.addActivity(tmp);
     }
 
     private static void buildDinner(String rest) {
         String[] data = readSingleLineCSV(rest);
         LocalDate date = DataParser.makeDateFromString(data[1]);
         LocalTime time = DataParser.makeTimeFromString(data[2]);
-        kinomichiEvent.addActivity(
-                new EventDinner(
-                        data[0],
-                        LocalDateTime.of(date, time),
-                        data[3],
-                        null
-                )
+        EventDinner tmp = new EventDinner(
+                data[0],
+                LocalDateTime.of(date, time),
+                data[3],
+                null
         );
 
+        if(data.length > 4){
+            for (int i = 4; i < data.length; i++) {
+                tmp.addParticipantToActivity(getParticipantFromId(data[i]));
+            }
+        }
+        kinomichiEvent.addActivity(tmp);
     }
 
     private static void buildSession(String rest) {
         String[] data = readSingleLineCSV(rest);
         LocalDate date = DataParser.makeDateFromString(data[1]);
         LocalTime time = DataParser.makeTimeFromString(data[2]);
-        kinomichiEvent.addActivity(
-                new KinomichiSession(
-                        data[0],
-                        LocalDateTime.of(date, time),
-                        Long.parseLong(data[3]),
-                        null
-                )
+        KinomichiSession tmp = new KinomichiSession(
+                data[0],
+                LocalDateTime.of(date, time),
+                Long.parseLong(data[3]),
+                null
         );
+        if(data.length > 4){
+            for (int i = 4; i < data.length; i++) {
+                if(data[i].startsWith("A_")){
+                    tmp.setAnimator(getParticipantFromId(data[i].substring(2)));
+                }else{
+                    tmp.addParticipantToActivity(getParticipantFromId(data[i]));
+                }
+            }
+        }
+        kinomichiEvent.addActivity(tmp);
     }
 
     private static void buildParticipant(String rest) {
         String[] data = readSingleLineCSV(rest);
         participantList.addParticipant(data);
     }
+
+    private static Participant getParticipantFromId(String id){return participantList.participantFromIf(id);}
 
     public static void saveIntoCSV(ParticipantsList participantList, FullEvent kinomichiEvent){
         try (BufferedWriter writer = new BufferedWriter(new FileWriter(FILE_PATH))) {

@@ -30,13 +30,15 @@ public class Lodgement extends Activity {
 
     public String toSaveString() {
         //==name;dd/mm/yyy;nbBed;
-        return "==%s;%s;%s;%s"
+        String res =  "==%s;%s;%s"
                 .formatted(
                         this.getActivityName(),
                         DataParser.makeStringFromDate(this.getDate()),
-                        DataParser.makeStringFromTime(this.getTime()),
+                        //DataParser.makeStringFromTime(this.getTime()),
                         this.availableBed
                 );
+        if(this.occupent != null) return res.concat(";").concat(this.occupent.getId());
+        else return res;
     }
 
     public String toString(){

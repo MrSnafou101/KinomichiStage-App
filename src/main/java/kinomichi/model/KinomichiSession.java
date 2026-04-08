@@ -21,19 +21,22 @@ public class KinomichiSession extends Activity{
     public boolean setAnimator(Participant animator){
         if(animator.getType() == ParticipantType.ANIMATOR){
             this.animator = animator;
+            addParticipantToActivity(animator);
             return true;
         }else{return false;}
     }
 
     public String toSaveString() {
         //##name;dd/mm/yyy;hh:mm;duration
-        return "##%s;%s;%s%s"
+        String res =  "##%s;%s;%s;%s"
                 .formatted(
                         this.getActivityName(),
                         DataParser.makeStringFromDate(this.getDate()),
                         DataParser.makeStringFromTime(this.getTime()),
                         this.durationInMinute
-                );
+                ).concat(stringOfParticipantsId());
+        if(animator != null) return res.concat("A_").concat(animator.getId());
+        else return res;
     }
 
     public String toString(){

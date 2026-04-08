@@ -25,8 +25,6 @@ public class Main {
 //                                ParticipantType.ADULT
 //                                )
 //                );
-
-
 //        DataReader.saveIntoCSV(DataReader.participantList, DataReader.kinomichiEvent);
 
         //actionHandler = new MainController();

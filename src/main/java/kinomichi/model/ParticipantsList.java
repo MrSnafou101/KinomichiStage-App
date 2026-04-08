@@ -14,17 +14,32 @@ public class ParticipantsList {
 
     public boolean addParticipant(Participant toAdd){return this.participants.add(toAdd);}
     public boolean addParticipant(String[] data){
-        return this.participants.add(new Participant(
-                data[0], //firstname
-                data[1], //lastname
-                data[2], //phone
-                data[3], //email
-                data[4], //club
-                ParticipantType.fromString(data[5]))
-        );
+        if(data.length > 6){
+            return this.participants.add(new Participant(
+                    data[0], //id
+                    data[1], //firstname
+                    data[2], //lastname
+                    data[3], //phone
+                    data[4], //email
+                    data[5], //club
+                    ParticipantType.fromString(data[6]))
+            );
+        }else{
+            return this.participants.add(new Participant(
+                    data[0], //firstname
+                    data[1], //lastname
+                    data[2], //phone
+                    data[3], //email
+                    data[4], //club
+                    ParticipantType.fromString(data[5]))
+            );
+        }
     }
 
     public void removeParticipant(Participant toRemove){this.participants.remove(toRemove);}
+    public Participant participantFromIf(String id){
+        return this.participants.stream().filter(p -> p.getId().equals(id)).findFirst().get();
+    }
     public boolean participantExist(String firstname, String lastname){
         for(Participant p : this.participants){
             if(p.getFirstName().equalsIgnoreCase(firstname) && p.getLastName().equalsIgnoreCase(lastname))return true;

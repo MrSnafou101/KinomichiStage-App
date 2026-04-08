@@ -19,13 +19,13 @@ public class EventDinner extends Activity{
     public String toSaveString() {
         //&&name;dd/mm/yyy;hh:mm;description
 
-        return "&&%s;%s;%s,%s"
+        return "&&%s;%s;%s;%s"
                 .formatted(
                         this.getActivityName(),
                         DataParser.makeStringFromDate(this.getDate()),
                         DataParser.makeStringFromTime(this.getTime()),
                         this.description
-                        );
+                        ).concat(stringOfParticipantsId());
     }
 
     public String toString(){

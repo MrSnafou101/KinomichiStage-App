@@ -1,26 +1,26 @@
 !!participants
-!!firstname;lastname;phoneNumber;email;clubName;participantType
-**Emma;Watson;+32695874652;e.watson@outlook.uk;Hogward;ADULT
-**Jackie;Chan;+32489652147;kung.fu@panda.cn;Jade palace;ANIMATOR
-**Anna;De armas;+32598632541;darmas@gmail.cu;Havan club;ADULT
-**Cillian;Murphy;+326985478851;peaky.blinders@birmingham.uk;Garrison;ADULT
-**Damian;Lewis;+32659874125;d.lewis@easy.company.uk;101st airborne;ADULT
+!!id;firstname;lastname;phoneNumber;email;clubName;participantType
+**WaEm62;Emma;Watson;+32695874652;e.watson@outlook.uk;Hogward;ADULT
+**ChJa33;Jackie;Chan;+32489652147;kung.fu@panda.cn;Jade palace;ANIMATOR
+**DeAn99;Anna;De armas;+32598632541;darmas@gmail.cu;Havan club;ADULT
+**MuCi26;Cillian;Murphy;+326985478851;peaky.blinders@birmingham.uk;Garrison;ADULT
+**LeDa19;Damian;Lewis;+32659874125;d.lewis@easy.company.uk;101st airborne;ADULT
 !!session
-!!name;dd/mm/yyy;hh:mm;duration
-##Session 6;06/06/2026;15:0090
-##Session 2;05/06/2026;12:00120
-##Session 3;05/06/2026;15:0090
-##Session 4;05/06/2026;09:3090
-##Session 5;06/06/2026;12:00120
-##Session 1;05/06/2026;09:30120
+!!name;dd/mm/yyy;hh:mm;duration;participants
+##Session 6;06/06/2026;15:00;90;ChJa33;A_ChJa33
+##Session 2;05/06/2026;12:00;120;WaEm62
+##Session 3;05/06/2026;15:00;90
+##Session 4;05/06/2026;09:30;90
+##Session 5;06/06/2026;12:00;120
+##Session 1;05/06/2026;09:30;120;WaEm62
 !!dinner
 !!name;dd/mm/yyy;hh:mm;description
-&&Souper de fin;06/06/2026;18:00,aperooooo
-&&Souper de 20H;05/06/2026;20:00,bonne app
+&&Souper de fin;06/06/2026;18:00;aperooooo
+&&Souper de 20H;05/06/2026;20:00;bonne app
 !!lodgement
 !!name;dd/mm/yyy;nbBed
-==Room 5;05/06/2026;00:00;2
-==Room 2;05/06/2026;00:00;4
-==Room 1;05/06/2026;00:00;2
-==Room 4;05/06/2026;00:00;2
-==Room 3;05/06/2026;00:00;4
+==Room 5;05/06/2026;2
+==Room 2;05/06/2026;4
+==Room 1;05/06/2026;2
+==Room 4;05/06/2026;2
+==Room 3;05/06/2026;4

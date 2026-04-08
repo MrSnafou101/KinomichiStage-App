@@ -64,10 +64,10 @@ public class DisplayController {
                 str.append("- no registration yet").append("\n");
             }else{
                 for(Participant p : resutl){
-                    if(((KinomichiSession)a).getAnimator().equals(p)){
-                        str.append("- ").append(a).append(" ANIMATOR ").append("\n");
+                    if(((KinomichiSession)a).getAnimator() != null && ((KinomichiSession)a).getAnimator().equals(p)){
+                        str.append("- ").append(p).append(" ANIMATOR ").append("\n");
                     }else{
-                        str.append("- ").append(a).append("\n");
+                        str.append("- ").append(p).append("\n");
                     }
                 }
             }

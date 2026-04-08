@@ -37,6 +37,14 @@ public abstract class Activity {
 
     public abstract String toSaveString();
 
+    public String stringOfParticipantsId(){
+        StringBuilder res  = new StringBuilder();
+        for (Participant p : this.participants.getParticipants()){
+            res.append(";").append(p.getId());
+        }
+        return res.toString();
+    }
+
     public String toString(){
         return this.activityName + " on " + this.activityDate;
     }
