@@ -6,6 +6,11 @@ import java.util.stream.IntStream;
 
 public class FullEvent {
     private Set<Activity> activitySet = new HashSet<>();
+    private Map<String, Class> classMap = Map.of(
+            "session", KinomichiSession.class,
+            "dinner", EventDinner.class,
+            "lodgement", Lodgement.class
+    );
 
     public Set<Activity> getActivitySet() {return activitySet;}
 
@@ -30,8 +35,10 @@ public class FullEvent {
     }
 
     public List<Activity> getFilteredActivities(String classStr){
-        Class c = (classStr.equalsIgnoreCase("lodgement"))? Lodgement.class :
-                (classStr.equalsIgnoreCase("dinner"))? EventDinner.class : KinomichiSession.class;
+//        Class c = (classStr.equalsIgnoreCase("lodgement"))? Lodgement.class :
+//                (classStr.equalsIgnoreCase("dinner"))? EventDinner.class : KinomichiSession.class;
+
+        Class c = classMap.get(classStr);
 
         return activitySet.stream()
                 .filter(a -> a.getClass() == c)
