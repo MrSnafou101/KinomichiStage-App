@@ -36,7 +36,7 @@ public class MainController {
             case "u" -> updateOptions();//System.out.println("update");
             case "l" -> listingMenu();//System.out.println("listing");
             case "i" -> System.out.println("infos");
-            case "s" -> DataReader.saveIntoCSV(participantList, kinomichiEvent);
+            case "s" -> saveData();
             default -> System.out.println("Error : action unknown, please try again");
         }
     }
@@ -44,6 +44,10 @@ public class MainController {
         this.controller.addParticipant();
     }
     public void registerParticipant(){this.controller.addPaticipantToSession();}
+    public void saveData(){
+        DataReader.saveIntoCSV(participantList, kinomichiEvent);
+        System.out.println("Data saved");
+    }
 
     public void displayActivityAction(){
         String input = "";
