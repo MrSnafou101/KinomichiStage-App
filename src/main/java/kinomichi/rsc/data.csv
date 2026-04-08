@@ -8,18 +8,18 @@
 !!session
 !!name;dd/mm/yyy;hh:mm;duration;participants
 ##Session 6;06/06/2026;15:00;90;ChJa33;A_ChJa33
-##Session 2;05/06/2026;12:00;120;WaEm62
+##Session 2;05/06/2026;12:00;120;WaEm62;MuCi26
 ##Session 3;05/06/2026;15:00;90
 ##Session 4;05/06/2026;09:30;90
 ##Session 5;06/06/2026;12:00;120
 ##Session 1;05/06/2026;09:30;120;WaEm62
 !!dinner
 !!name;dd/mm/yyy;hh:mm;description
-&&Souper de fin;06/06/2026;18:00;aperooooo
+&&Souper de fin;06/06/2026;18:00;aperooooo;LeDa19;MuCi26
 &&Souper de 20H;05/06/2026;20:00;bonne app
 !!lodgement
 !!name;dd/mm/yyy;nbBed
-==Room 5;05/06/2026;2
+==Room 5;05/06/2026;2;DeAn99
 ==Room 2;05/06/2026;4
 ==Room 1;05/06/2026;2
 ==Room 4;05/06/2026;2

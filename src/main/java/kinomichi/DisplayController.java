@@ -82,7 +82,23 @@ public class DisplayController {
     }
 
     public void listDinnersWithParticipants(){
-        System.out.println("To be Done");
+        List<Activity> dinners = this.kinomichiEvent.getActivitySet().stream().filter(
+                a -> a.getClass() == EventDinner.class
+        ).toList();
+
+        StringBuilder str = new StringBuilder();
+        for (Activity a : dinners){
+            str.append(a.toString()).append("\n");
+            Set<Participant> resutl = a.getParticipants();
+            if(resutl.isEmpty()){
+                str.append("- no registration yet").append("\n");
+            }else{
+                for(Participant p : resutl){
+                    str.append("- ").append(p).append("\n");
+                }
+            }
+        }
+        System.out.println(str);
     }
 
     public void listlodgement(){

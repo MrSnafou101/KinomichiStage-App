@@ -15,7 +15,6 @@ public class KinomichiSession extends Activity{
         this.durationInMinute = duration;
     }
     public Participant getAnimator(){return this.animator;}
-    //public Long activityDuration(){return ChronoUnit.HOURS.between(getActivityDate(), this.endDateAndHour);}
     public long getSessionDuration(){return this.durationInMinute;}
     public LocalDateTime getSessionEnd(){return this.getActivityDate().plusMinutes(this.durationInMinute);}
     public boolean setAnimator(Participant animator){
@@ -28,7 +27,7 @@ public class KinomichiSession extends Activity{
 
     public String toSaveString() {
         //##name;dd/mm/yyy;hh:mm;duration
-        String res =  "##%s;%s;%s;%s"
+        String res = "##%s;%s;%s;%s"
                 .formatted(
                         this.getActivityName(),
                         DataParser.makeStringFromDate(this.getDate()),
